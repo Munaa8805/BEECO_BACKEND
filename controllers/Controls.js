@@ -1,13 +1,11 @@
-const Bootcamp = require("../models/Bootcamp");
-//// desc get all bootcamps
+const ModelCRUD = require("../models/Model");
+//// desc get all crudModels
 //// route Get /api/v1/bootcamps
 //// access Public
-exports.getBootcamps = async (req, res, next) => {
+exports.getCrudModels = async (req, res, next) => {
   try {
-    const bootcamps = await Bootcamp.find();
-    res
-      .status(200)
-      .json({ success: true, total: bootcamps.length, data: bootcamps });
+    const models = await ModelCRUD.find();
+    res.status(200).json({ success: true, total: models.length, data: models });
   } catch (err) {
     res.status(400).json({
       success: false,
@@ -18,36 +16,33 @@ exports.getBootcamps = async (req, res, next) => {
 //// desc get single bootcamp
 //// route Get /api/v1/bootcamps/:id
 //// access Public
-exports.getBootcamp = async (req, res, next) => {
+exports.getCrudModel = async (req, res, next) => {
   try {
-    const bootcamp = await Bootcamp.findById(req.params.id);
-    if (!bootcamp) {
+    const model = await ModelCRUD.findById(req.params.id);
+    if (!model) {
       return res.status(400).json({
         success: false,
         data: req.params.id + "ийм ID дугаартай мэдээлэл байхгүй байна",
         message: err.message
       });
     }
-    res.status(200).json({ success: true, data: bootcamp });
+    res.status(200).json({ success: true, data: model });
   } catch (err) {
     res.status(400).json({
       success: false,
       data: err.message
     });
   }
-  // res
-  //   .status(200)
-  //   .json({ success: false, msg: `get bootcamp ${req.params.id}` });
 };
-//// desc Create a bootcamp
+//// desc Create a crud
 //// route POST  /api/v1/bootcamps
 //// access Public
-exports.createBootcamp = async (req, res, next) => {
+exports.createCrudModel = async (req, res, next) => {
   try {
-    const bootcamp = await Bootcamp.create(req.body);
+    const model = await ModelCRUD.create(req.body);
     res.status(201).json({
       success: true,
-      data: bootcamp
+      data: model
     });
   } catch (err) {
     res.status(400).json({
@@ -55,20 +50,17 @@ exports.createBootcamp = async (req, res, next) => {
       data: err.message
     });
   }
-
-  // console.log(req.body);
-  // res.status(200).json({ success: false, msg: "create new bootcamp" });
 };
 //// desc Update a bootcamp
 //// route PUT /api/v1/bootcamps/:id
 //// access Public
-exports.updateBootcamp = async (req, res, next) => {
+exports.updateCrudModel = async (req, res, next) => {
   try {
-    const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
+    const model = await ModelCRUD.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     });
-    if (!bootcamp) {
+    if (!model) {
       return res.status(400).json({
         success: false,
         data: req.params.id + "ийм ID дугаартай мэдээлэл байхгүй байна",
@@ -77,7 +69,7 @@ exports.updateBootcamp = async (req, res, next) => {
     }
     res.status(200).json({
       success: true,
-      data: bootcamp
+      data: model
     });
   } catch (err) {
     res.status(400).json({
@@ -89,10 +81,10 @@ exports.updateBootcamp = async (req, res, next) => {
 //// desc Delete a bootcamp
 //// route Delete  /api/v1/bootcamps/:id
 //// access Public
-exports.deleteBootcamp = async (req, res, next) => {
+exports.deleteCrudModel = async (req, res, next) => {
   try {
-    const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
-    if (!bootcamp) {
+    const model = await ModelCRUD.findByIdAndDelete(req.params.id);
+    if (!model) {
       return res.status(400).json({
         success: false,
         message: err.message
@@ -100,7 +92,7 @@ exports.deleteBootcamp = async (req, res, next) => {
     }
     res.status(200).json({
       success: true,
-      data: bootcamp
+      data: model
     });
   } catch (err) {
     res.status(400).json({
@@ -108,8 +100,4 @@ exports.deleteBootcamp = async (req, res, next) => {
       data: err.message
     });
   }
-
-  // res
-  //   .status(200)
-  //   .json({ success: false, msg: `delete bootcamp ${req.params.id}` });
 };
