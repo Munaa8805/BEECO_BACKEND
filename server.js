@@ -10,7 +10,7 @@ dotenv.config({ path: "./config/config.env" });
 const logger = require("./middleware/logger");
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 connectDB();
 ///body parser
 app.use(express.json());
